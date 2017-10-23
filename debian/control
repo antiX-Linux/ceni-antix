@@ -1,0 +1,29 @@
+Source: ceni
+Section: net
+Priority: optional
+Maintainer: Mike Purtell (mmikeinsantarosa)
+XSBC-Original-Maintainer: Sebastian Görgen <zeppo@siduction.net>
+Uploaders: Alf Gaida <agaida@siduction.org>
+Build-Depends: debhelper (>= 9)
+Build-Depends-Indep: perl,
+ libexpect-perl
+Vcs-Git: git://git.siduction.org/packages/siduction-repository/ceni.git
+Vcs-Browser: http://git.siduction.org/?p=packages/siduction-repository/ceni.git
+Standards-Version: 3.9.4
+
+Package: ceni
+Architecture: all
+Depends: ${misc:Depends},
+ ${perl:Depends},
+ libcurses-ui-perl,
+ libexpect-perl,
+ libterm-readkey-perl,
+ ifupdown,
+ udev,
+ wpasupplicant
+Recommends: resolvconf
+Suggests: wpagui
+Description: Curses interface to /etc/network/interfaces
+ A Curses user interface for configuring network interfaces with ifupdown.
+ Ceni can manage basic network interface ifupdown configuration stanzas for
+ ethernet and wireless devices.
