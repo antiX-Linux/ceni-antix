@@ -19,7 +19,7 @@ Depends: ${misc:Depends},
  libexpect-perl,
  libterm-readkey-perl,
  ifupdown,
- udev,
+ udev | eudev,
  wpasupplicant
 Recommends: resolvconf
 Suggests: wpagui

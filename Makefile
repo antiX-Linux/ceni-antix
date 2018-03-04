@@ -6,7 +6,7 @@
 #
 #       ANY CHANGES MADE HERE WILL BE LOST!
 #
-#   MakeMaker ARGV: (q[INSTALLDIRS=vendor], q[OPTIMIZE=-g -O2 -fdebug-prefix-map=/home/anticap/Downloads/nosystemd/ceni-2.38.4=. -fstack-protector-strong -Wformat -Werror=format-security -Wdate-time -D_FORTIFY_SOURCE=2], q[LD=x86_64-linux-gnu-gcc -g -O2 -fdebug-prefix-map=/home/anticap/Downloads/nosystemd/ceni-2.38.4=. -fstack-protector-strong -Wformat -Werror=format-security -Wl,-z,relro])
+#   MakeMaker ARGV: (q[INSTALLDIRS=vendor], q[OPTIMIZE=-g -O2 -fdebug-prefix-map=/home/anticap/src-debs/src-debs-antix/stretch/ceni=. -fstack-protector-strong -Wformat -Werror=format-security -Wdate-time -D_FORTIFY_SOURCE=2], q[LD=x86_64-linux-gnu-gcc -g -O2 -fdebug-prefix-map=/home/anticap/src-debs/src-debs-antix/stretch/ceni=. -fstack-protector-strong -Wformat -Werror=format-security -Wl,-z,relro])
 #
 
 #   MakeMaker Parameters:
@@ -36,7 +36,7 @@ DLEXT = so
 DLSRC = dl_dlopen.xs
 EXE_EXT = 
 FULL_AR = /usr/bin/ar
-LD = x86_64-linux-gnu-gcc -g -O2 -fdebug-prefix-map=/home/anticap/Downloads/nosystemd/ceni-2.38.4=. -fstack-protector-strong -Wformat -Werror=format-security -Wl,-z,relro
+LD = x86_64-linux-gnu-gcc -g -O2 -fdebug-prefix-map=/home/anticap/src-debs/src-debs-antix/stretch/ceni=. -fstack-protector-strong -Wformat -Werror=format-security -Wl,-z,relro
 LDDLFLAGS = -shared -L/usr/local/lib -fstack-protector-strong
 LDFLAGS =  -fstack-protector-strong -L/usr/local/lib
 LIBC = libc-2.24.so
@@ -435,24 +435,24 @@ manifypods : pure_all  \
 
 EXE_FILES = bin/Ceni bin/nicinfo
 
-pure_all :: $(INST_SCRIPT)/nicinfo $(INST_SCRIPT)/Ceni
+pure_all :: $(INST_SCRIPT)/Ceni $(INST_SCRIPT)/nicinfo
 	$(NOECHO) $(NOOP)
 
 realclean ::
 	$(RM_F) \
-	  $(INST_SCRIPT)/nicinfo $(INST_SCRIPT)/Ceni 
-
-$(INST_SCRIPT)/nicinfo : bin/nicinfo $(FIRST_MAKEFILE) $(INST_SCRIPT)$(DFSEP).exists $(INST_BIN)$(DFSEP).exists
-	$(NOECHO) $(RM_F) $(INST_SCRIPT)/nicinfo
-	$(CP) bin/nicinfo $(INST_SCRIPT)/nicinfo
-	$(FIXIN) $(INST_SCRIPT)/nicinfo
-	-$(NOECHO) $(CHMOD) $(PERM_RWX) $(INST_SCRIPT)/nicinfo
+	  $(INST_SCRIPT)/Ceni $(INST_SCRIPT)/nicinfo 
 
 $(INST_SCRIPT)/Ceni : bin/Ceni $(FIRST_MAKEFILE) $(INST_SCRIPT)$(DFSEP).exists $(INST_BIN)$(DFSEP).exists
 	$(NOECHO) $(RM_F) $(INST_SCRIPT)/Ceni
 	$(CP) bin/Ceni $(INST_SCRIPT)/Ceni
 	$(FIXIN) $(INST_SCRIPT)/Ceni
 	-$(NOECHO) $(CHMOD) $(PERM_RWX) $(INST_SCRIPT)/Ceni
+
+$(INST_SCRIPT)/nicinfo : bin/nicinfo $(FIRST_MAKEFILE) $(INST_SCRIPT)$(DFSEP).exists $(INST_BIN)$(DFSEP).exists
+	$(NOECHO) $(RM_F) $(INST_SCRIPT)/nicinfo
+	$(CP) bin/nicinfo $(INST_SCRIPT)/nicinfo
+	$(FIXIN) $(INST_SCRIPT)/nicinfo
+	-$(NOECHO) $(CHMOD) $(PERM_RWX) $(INST_SCRIPT)/nicinfo
 
 
 
@@ -654,7 +654,7 @@ distdir : create_distdir distmeta
 
 # --- MakeMaker dist_test section:
 disttest : distdir
-	cd $(DISTVNAME) && $(ABSPERLRUN) Makefile.PL "INSTALLDIRS=vendor" "OPTIMIZE=-g -O2 -fdebug-prefix-map=/home/anticap/Downloads/nosystemd/ceni-2.38.4=. -fstack-protector-strong -Wformat -Werror=format-security -Wdate-time -D_FORTIFY_SOURCE=2" "LD=x86_64-linux-gnu-gcc -g -O2 -fdebug-prefix-map=/home/anticap/Downloads/nosystemd/ceni-2.38.4=. -fstack-protector-strong -Wformat -Werror=format-security -Wl,-z,relro"
+	cd $(DISTVNAME) && $(ABSPERLRUN) Makefile.PL "INSTALLDIRS=vendor" "OPTIMIZE=-g -O2 -fdebug-prefix-map=/home/anticap/src-debs/src-debs-antix/stretch/ceni=. -fstack-protector-strong -Wformat -Werror=format-security -Wdate-time -D_FORTIFY_SOURCE=2" "LD=x86_64-linux-gnu-gcc -g -O2 -fdebug-prefix-map=/home/anticap/src-debs/src-debs-antix/stretch/ceni=. -fstack-protector-strong -Wformat -Werror=format-security -Wl,-z,relro"
 	cd $(DISTVNAME) && $(MAKE) $(PASTHRU)
 	cd $(DISTVNAME) && $(MAKE) test $(PASTHRU)
 
@@ -795,7 +795,7 @@ $(FIRST_MAKEFILE) : Makefile.PL $(CONFIGDEP)
 	-$(NOECHO) $(RM_F) $(MAKEFILE_OLD)
 	-$(NOECHO) $(MV)   $(FIRST_MAKEFILE) $(MAKEFILE_OLD)
 	- $(MAKE) $(USEMAKEFILE) $(MAKEFILE_OLD) clean $(DEV_NULL)
-	$(PERLRUN) Makefile.PL "INSTALLDIRS=vendor" "OPTIMIZE=-g -O2 -fdebug-prefix-map=/home/anticap/Downloads/nosystemd/ceni-2.38.4=. -fstack-protector-strong -Wformat -Werror=format-security -Wdate-time -D_FORTIFY_SOURCE=2" "LD=x86_64-linux-gnu-gcc -g -O2 -fdebug-prefix-map=/home/anticap/Downloads/nosystemd/ceni-2.38.4=. -fstack-protector-strong -Wformat -Werror=format-security -Wl,-z,relro"
+	$(PERLRUN) Makefile.PL "INSTALLDIRS=vendor" "OPTIMIZE=-g -O2 -fdebug-prefix-map=/home/anticap/src-debs/src-debs-antix/stretch/ceni=. -fstack-protector-strong -Wformat -Werror=format-security -Wdate-time -D_FORTIFY_SOURCE=2" "LD=x86_64-linux-gnu-gcc -g -O2 -fdebug-prefix-map=/home/anticap/src-debs/src-debs-antix/stretch/ceni=. -fstack-protector-strong -Wformat -Werror=format-security -Wl,-z,relro"
 	$(NOECHO) $(ECHO) "==> Your Makefile has been rebuilt. <=="
 	$(NOECHO) $(ECHO) "==> Please rerun the $(MAKE) command.  <=="
 	$(FALSE)
@@ -818,8 +818,8 @@ $(MAKE_APERL_FILE) : $(FIRST_MAKEFILE) pm_to_blib
 		MAKEFILE=$(MAKE_APERL_FILE) LINKTYPE=static \
 		MAKEAPERL=1 NORECURS=1 CCCDLFLAGS= \
 		INSTALLDIRS=vendor \
-		OPTIMIZE='-g -O2 -fdebug-prefix-map=/home/anticap/Downloads/nosystemd/ceni-2.38.4=. -fstack-protector-strong -Wformat -Werror=format-security -Wdate-time -D_FORTIFY_SOURCE=2' \
-		LD='x86_64-linux-gnu-gcc -g -O2 -fdebug-prefix-map=/home/anticap/Downloads/nosystemd/ceni-2.38.4=. -fstack-protector-strong -Wformat -Werror=format-security -Wl,-z,relro'
+		OPTIMIZE='-g -O2 -fdebug-prefix-map=/home/anticap/src-debs/src-debs-antix/stretch/ceni=. -fstack-protector-strong -Wformat -Werror=format-security -Wdate-time -D_FORTIFY_SOURCE=2' \
+		LD='x86_64-linux-gnu-gcc -g -O2 -fdebug-prefix-map=/home/anticap/src-debs/src-debs-antix/stretch/ceni=. -fstack-protector-strong -Wformat -Werror=format-security -Wl,-z,relro'
 
 
 # --- MakeMaker test section:
